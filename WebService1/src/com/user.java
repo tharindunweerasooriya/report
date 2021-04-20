@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class user {
 
-	
+	// connect to the database
 	private Connection connect() { 
 	 
 		Connection con = null; 
@@ -16,7 +16,7 @@ public class user {
 				
 					Class.forName("com.mysql.jdbc.Driver"); 
 	 
-	 
+					//database name, username , password
 					con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/code", "root", "root"); 
 			} 
 			catch (Exception e) {
@@ -42,18 +42,20 @@ public class user {
 				
 			} 
 			
-			// create a prepared statement
+			//query
 			String query = " insert into user (`first_name`,`last_name`,`em`,`usern`, `pass`)"+ " values (?, ?, ?, ?, ?)"; 
 			
+			//create preparestatement
 			PreparedStatement preparedStmt = con.prepareStatement(query); 
 			
-			// binding values
+			// set values
 			preparedStmt.setString(1, first_name); 
 			preparedStmt.setString(2, last_name); 
 			preparedStmt.setString(3, em); 
 			preparedStmt.setString(4, usern); 
 			preparedStmt.setString(5, pass); 
 	 
+			//execute
 			preparedStmt.execute(); 
 			con.close();
 			
@@ -83,6 +85,7 @@ public class user {
 					
 				} 
 	 
+				//create html table
 				output = "<table border='1'><tr><th>ID</th><th>First Name</th>" +
 						"<th>Last Name</th>" + 
 						"<th>Email</th>" +
@@ -90,12 +93,15 @@ public class user {
 						"<th>Password</th>" +
 						"<th>Update</th><th>Remove</th></tr>"; 
 				
-	 
+				//query
 				String query = "select * from user"; 
+				//create statement
 				Statement stmt = (Statement) con.createStatement(); 
+				
+				//create resultset
 				ResultSet rs = ((java.sql.Statement) stmt).executeQuery(query);
 				
-				// iterate through the rows in the result set
+				
 				while (rs.next()) { 
 					
 						String ID = Integer.toString(rs.getInt("id")); 
@@ -154,12 +160,14 @@ public class user {
 			 } 
 			 
 			 
-			 	// create a prepared statement
+			 	// query
 			 	String query = "UPDATE user SET first_name=?,last_name=?,em=?,usern=?, pass=? WHERE id=?"; 
+			 	
+			 	//create statement
 			 	PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 	
 			 	
-			 		// binding values
+			 		// set values
 			 		
 			 		preparedStmt.setString(1, first_name); 
 			 		preparedStmt.setString(2, last_name); 
@@ -204,8 +212,10 @@ public class user {
 			 		} 
 			 		
 			 		
-			 			// create a prepared statement
+			 			// query
 			 			String query = "delete from user where id=?"; 
+			 			
+			 			//create statment
 			 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			 			
 			 			
@@ -246,7 +256,10 @@ public class user {
 				
 				System.out.println("error");
 				
+				//query
 				String query = "select `usern`, `pass` from user where usern =? and pass=?";
+				
+				//create statement
 				PreparedStatement preparedStmt = con.prepareStatement(query);
 				
 				System.out.println(preparedStmt);
@@ -262,7 +275,7 @@ public class user {
 				if(rs.next()) {
 					
 					con.close();
-					output = usern +""+ "Successfully loged in.";
+					return usern +" "+ "  Successfully loged in.";
 				}
 				else {
 					
