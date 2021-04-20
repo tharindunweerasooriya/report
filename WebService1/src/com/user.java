@@ -231,5 +231,80 @@ public class user {
 		 
 		} 
 		
+		public String login(String usern, String pass) {
+			
+			String output ="";
+			
+			try {
+				
+				Connection con = connect();
+				
+				if(con == null) {
+					
+					return "error while connecting to dadabase";
+				}
+				
+				System.out.println("error");
+				
+				String query = "select `usern`, `pass` from user where usern =? and pass=?";
+				PreparedStatement preparedStmt = con.prepareStatement(query);
+				
+				System.out.println(preparedStmt);
+				System.out.println(usern);
+				System.out.println(pass);
+				
+				preparedStmt.setString(1, usern);
+				preparedStmt.setString(2, pass);
+				
+				ResultSet rs = preparedStmt.executeQuery();
+				
+				
+				if(rs.next()) {
+					
+					con.close();
+					output = usern +""+ "Successfully loged in.";
+				}
+				else {
+					
+					con.close();
+					if(usern.equals("")) {
+						
+						return "User cannot be empty";
+					}
+					else if(pass.equals("")) {
+						
+						return "password cannot be empty";
+						
+					}
+					else if(usern.equals("admin")) {
+						
+						return "Admin is log in to the system";
+					}
+					else if(usern.equals("")) {
+						
+						return "User cannot be empty";
+					}
+					else if(pass.equals("admin123")) {
+						
+						return "Admin login successful";
+					}
+					else if(pass.equals("")) {
+						
+						return "password cannot be empty";
+					}
+					else {
+						
+						return "incorrect username or password";
+					}
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				output = "Error while deleting the user."; 
+				 System.err.println(e.getMessage()); 
+				
+			}
+			return output;
+		}
+		
 
 }

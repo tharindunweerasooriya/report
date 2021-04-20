@@ -93,6 +93,25 @@ public class User_Service {
 	 String output = itemObj.deleteUser(id); 
 	return output; 
 	}
+	
+	@POST
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	
+	public String getLog(String log) {
+		
+		Document doc = Jsoup.parse(log,"",Parser.xmlParser());
+		
+		String usern = doc.select("usern").text();
+		String pass = doc.select("pass").text();
+		
+		String output = itemObj.login(usern, pass);
+		
+		return output;
+		
+	}
 
 
 }
