@@ -112,6 +112,100 @@ public class User_Service {
 		return output;
 		
 	}
+	
+	user itemObj2 = new user(); 
+	@GET
+	@Path("/admin") 
+	@Produces(MediaType.TEXT_HTML) 
+	public String readAdmin() { 
+		 
+			 return itemObj2.readAdmin(); 
+	  
+	
+	 }
+	@POST
+	@Path("/admin") 
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String insertAdmin(@FormParam("first_name") String first_name, 
+	 @FormParam("last_name") String last_name, 
+	 @FormParam("em") String em, 
+	 @FormParam("usern") String usern,
+	 @FormParam("pass") String pass) 
+	{ 
+		
+		String output = itemObj2.insertAdmin(first_name, last_name, em, usern, pass);
+	 
+		return output; 
+	
+	}
+	
+	user itemObj3 = new user(); 
+	@GET
+	@Path("/research") 
+	@Produces(MediaType.TEXT_HTML) 
+	public String readResearch() { 
+		 
+			 return itemObj3.readResearch(); 
+	  
+	
+	 }
+	
+	@POST
+	@Path("/research") 
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String insertResearch(@FormParam("first_name") String first_name, 
+	 @FormParam("last_name") String last_name, 
+	 @FormParam("em") String em, 
+	 @FormParam("usern") String usern,
+	 @FormParam("pass") String pass) 
+	{ 
+		
+		String output = itemObj3.insertResearch(first_name, last_name, em, usern, pass);
+	 
+		return output; 
+	
+	}
+	
+	@POST
+	@Path("/loginAdmin")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	
+	public String getLogAdmin(String log) {
+		
+		Document doc = Jsoup.parse(log,"",Parser.xmlParser());
+		
+		String usern = doc.select("usern").text();
+		String pass = doc.select("pass").text();
+		
+		String output = itemObj2.loginAdmin(usern, pass);
+		
+		return output;
+		
+	}
+	
+	@POST
+	@Path("/loginResearch")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	
+	
+	public String getLogReserch(String log) {
+		
+		Document doc = Jsoup.parse(log,"",Parser.xmlParser());
+		
+		String usern = doc.select("usern").text();
+		String pass = doc.select("pass").text();
+		
+		String output = itemObj.loginResearch(usern, pass);
+		
+		return output;
+		
+	}
+	
 
 
 }
