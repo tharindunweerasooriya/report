@@ -41,13 +41,9 @@ public class ProductService {
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String insertProduct
 	(@FormParam("product_id") String product_id, 
-	 @FormParam("product_name") String product_name, 
-	 @FormParam("owner") String owner, 
-	 @FormParam("description") String description, 
-	@FormParam("price") String price,
-	@FormParam("email") String email)
+	 @FormParam("review_id") String review_id)
 	{ 
-	 String output = Obj.insertProduct(product_id, product_name, owner, description, price, email); 
+	 String output = Obj.insertProduct(product_id, review_id); 
 	return output; 
 	}
 
@@ -63,13 +59,9 @@ public class ProductService {
 	 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject(); 
 	//Read the values from the JSON object
 	 String product_id = itemObject.get("product_id").getAsString(); 
-	 String product_name = itemObject.get("product_name").getAsString(); 
-	 String owner = itemObject.get("owner").getAsString(); 
-	 String description = itemObject.get("description").getAsString(); 
-	 String price = itemObject.get("price").getAsString(); 
-	 String email = itemObject.get("email").getAsString();
+	 String review_id = itemObject.get("review_id").getAsString();
 	 
-	 String output = Obj.updateProduct(product_id, product_name, owner, description, price, email); 
+	 String output = Obj.updateProduct(product_id, review_id); 
 	return output; 
 	}
 	

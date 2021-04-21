@@ -41,17 +41,12 @@ public class ReviewService {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String insertItem
-	(@FormParam("project_id") String project_id, 
-	 @FormParam("project_name") String project_name, 
-	 @FormParam("owner") String owner, 
-	 @FormParam("description") String description, 
-	@FormParam("price") String price,
-	@FormParam("email") String email,
-	@FormParam("phone") String phone,
+	(@FormParam("review_id") String review_id,
+	@FormParam("project_id") String project_id,
 	@FormParam("review") String review,
 	@FormParam("acceptance") String acceptance)
 	{ 
-	 String output = Obj.insertItem(project_id, project_name, owner, description, price, email, phone, review, acceptance); 
+	 String output = Obj.insertItem(review_id, project_id, review, acceptance); 
 	return output; 
 	}
 
@@ -66,17 +61,12 @@ public class ReviewService {
 	//Convert the input string to a JSON object 
 	 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject(); 
 	//Read the values from the JSON object
-	 String project_id = itemObject.get("project_id").getAsString(); 
-	 String project_name = itemObject.get("project_name").getAsString(); 
-	 String owner = itemObject.get("owner").getAsString(); 
-	 String description = itemObject.get("description").getAsString(); 
-	 String price = itemObject.get("price").getAsString(); 
-	 String email = itemObject.get("email").getAsString();
-	 String phone = itemObject.get("phone").getAsString();
+	 String review_id = itemObject.get("review_id").getAsString();
+	 String project_id = itemObject.get("project_id").getAsString();
 	 String review = itemObject.get("review").getAsString();
 	 String acceptance = itemObject.get("acceptance").getAsString();
 	 
-	 String output = Obj.updateItem(project_id, project_name, owner, description, price, email, phone, review, acceptance); 
+	 String output = Obj.updateItem(review_id, project_id, review, acceptance); 
 	return output; 
 	}
 	
@@ -91,7 +81,7 @@ public class ReviewService {
 	 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser()); 
 	 
 	//Read the value from the element <itemID>
-	 String projectID = doc.select("project_id").text(); 
+	 String projectID = doc.select("review_id").text(); 
 	 String output = Obj.deleteItem(projectID); 
 	return output; 
 	}

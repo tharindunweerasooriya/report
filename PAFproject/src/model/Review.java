@@ -31,7 +31,7 @@ public class Review {
 	
 	//Insert items to table
 	
-	public String insertItem(String id, String name, String owner, String description, String price, String email, String phone, String review, String acceptance) 
+	public String insertItem(String id, String project_id, String review, String acceptance) 
 	 { 
 		 String output = ""; 
 		 try
@@ -42,20 +42,15 @@ public class Review {
 		 
 		 
 		 // create a prepared statement
-		 String query = " insert into review (`project_id`,`project_name`,`owner`,`description`,`price`,`email`,`phone`,`review`,`acceptance`)"+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+		 String query = " insert into review (`review_id`, `project_id`, `review`,`acceptance`)"+ " values (?, ?, ?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values 
-		 preparedStmt.setInt(1, Integer.parseInt(id)); 
-		 preparedStmt.setString(2, name); 
-		 preparedStmt.setString(3, owner); 
-		 preparedStmt.setString(4, description); 
-		 preparedStmt.setDouble(5, Double.parseDouble(price)); 
-		 preparedStmt.setString(6, email);
-		 preparedStmt.setInt(7, Integer.parseInt(phone));
-		 preparedStmt.setString(8, review);
-		 preparedStmt.setString(9, acceptance);
+		 preparedStmt.setInt(1, 0); 
+		 preparedStmt.setInt(2, Integer.parseInt(project_id));
+		 preparedStmt.setString(3, review);
+		 preparedStmt.setString(4, acceptance);
 		 
 		 
 		// execute the statement3
@@ -92,12 +87,7 @@ public class Review {
 		 
 		 
 		 // Prepare the html table to be displayed
-		 output = "<table border='1'><tr><th>Project id</th><th>Project Name</th>" +
-		 "<th>Owner</th>" + 
-		 "<th>Description</th>" +
-		 "<th>price</th>"+
-		 "<th>email</th>"+
-		 "<th>phone</th>"+
+		 output = "<table border='1'><tr><th>Project id</th>" +
 		 "<th>review</th>"+
 		 "<th>acceptance</th></tr>"; 
 		 
@@ -109,25 +99,13 @@ public class Review {
 		 // iterate through the rows in the result set
 		 while (rs.next()) 
 		 { 
-		 String projectID = Integer.toString(rs.getInt("project_id")); 
-		 String projectName = rs.getString("project_name"); 
-		 String owner = rs.getString("owner"); 
-		 String desc = rs.getString("description"); 
-		 String price =Double.toString(rs.getDouble("price"));  
-		 String email = rs.getString("email");
-		 String phone = Integer.toString(rs.getInt("phone"));
+		 String projectID = Integer.toString(rs.getInt("project_id"));
 		 String review = rs.getString("review");
 		 String acceptance = rs.getString("acceptance");
 		 
 		 
 		 // Add into the html table
-		 output += "<tr><td>" + projectID + "</td>"; 
-		 output += "<td>" + projectName + "</td>"; 
-		 output += "<td>" + owner + "</td>"; 
-		 output += "<td>" + desc + "</td>"; 
-		 output += "<td>" + price + "</td>";
-		 output += "<td>" + email + "</td>";
-		 output += "<td>" + phone + "</td>";
+		 output += "<tr><td>" + projectID + "</td>";
 		 output += "<td>" + review + "</td>";
 		 output += "<td>" + acceptance + "</td>";
 		 
@@ -158,7 +136,7 @@ public class Review {
 	
 	//update items in the table 
 	
-	public String updateItem(String id, String name, String owner, String description, String price, String email, String phone, String review, String acceptance)
+	public String updateItem(String id, String project_id, String review, String acceptance)
 	 { 
 		 String output = ""; 
 		 try
@@ -169,20 +147,15 @@ public class Review {
 		 
 		 
 		 // create a prepared statement
-		 String query = "UPDATE review SET project_name=?,owner=?,description=?,price=?,email=?,phone=?,review=?,acceptance=? WHERE project_id=?"; 
+		 String query = "UPDATE review SET project_id=?,review=?,acceptance=? WHERE review_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
-		 // binding values
-		 preparedStmt.setString(1, name); 
-		 preparedStmt.setString(2, owner); 
-		 preparedStmt.setString(3, description); 
-		 preparedStmt.setDouble(4, Double.parseDouble(price)); 
-		 preparedStmt.setString(5, email); 
-		 preparedStmt.setInt(6, Integer.parseInt(phone));
-		 preparedStmt.setString(7, review); 
-		 preparedStmt.setString(8, acceptance); 
-		 preparedStmt.setInt(9, Integer.parseInt(id));
+		 // binding values 
+		 preparedStmt.setInt(1, Integer.parseInt(project_id));
+		 preparedStmt.setString(2, review); 
+		 preparedStmt.setString(3, acceptance); 
+		 preparedStmt.setInt(4, Integer.parseInt(id));
 		 
 		 
 		 // execute the statement
@@ -216,7 +189,7 @@ public class Review {
 		 
 		 
 		 // create a prepared statement
-		 String query = "delete from review where project_id=?"; 
+		 String query = "delete from review where review_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 

@@ -31,7 +31,7 @@ public class Product {
 	
 	//Insert items to table
 	
-	public String insertProduct(String id, String name, String owner, String description, String price, String email) 
+	public String insertProduct(String id, String review_id) 
 	 { 
 		 String output = ""; 
 		 try
@@ -42,17 +42,13 @@ public class Product {
 		 
 		 
 		 // create a prepared statement
-		 String query = " insert into products (`product_id`,`product_name`,`owner`,`description`,`price`,`email`)"+ " values (?, ?, ?, ?, ?, ?)"; 
+		 String query = " insert into products (`product_id`,`review_id`)"+ " values (?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values 
-		 preparedStmt.setInt(1, Integer.parseInt(id)); 
-		 preparedStmt.setString(2, name); 
-		 preparedStmt.setString(3, owner); 
-		 preparedStmt.setString(4, description); 
-		 preparedStmt.setDouble(5, Double.parseDouble(price)); 
-		 preparedStmt.setString(6, email);
+		 preparedStmt.setInt(1, 0); 
+		 preparedStmt.setInt(2, Integer.parseInt(review_id));
 		 
 		 
 		// execute the statement3
@@ -89,11 +85,7 @@ public class Product {
 		 
 		 
 		 // Prepare the html table to be displayed
-		 output = "<table border='1'><tr><th>Product id</th><th>Product Name</th>" +
-		 "<th>Owner</th>" + 
-		 "<th>Description</th>" +
-		 "<th>price</th>"+
-		 "<th>email</th></tr>"; 
+		 output = "<table border='1'><tr><th>Product id</th><th>Review id</th></tr>"; 
 		 
 		 String query = "select * from products"; 
 		 Statement stmt = con.createStatement(); 
@@ -104,20 +96,12 @@ public class Product {
 		 while (rs.next()) 
 		 { 
 		 String projectID = Integer.toString(rs.getInt("product_id")); 
-		 String projectName = rs.getString("product_name"); 
-		 String owner = rs.getString("owner"); 
-		 String desc = rs.getString("description"); 
-		 String price =Double.toString(rs.getDouble("price"));  
-		 String email = rs.getString("email");
+		 String review_id = rs.getString("review_id"); 
 		 
 		 
 		 // Add into the html table
 		 output += "<tr><td>" + projectID + "</td>"; 
-		 output += "<td>" + projectName + "</td>"; 
-		 output += "<td>" + owner + "</td>"; 
-		 output += "<td>" + desc + "</td>"; 
-		 output += "<td>" + price + "</td>";
-		 output += "<td>" + email + "</td>";
+		 output += "<td>" + review_id + "</td>";
 		 
 		 
 		 
@@ -146,7 +130,7 @@ public class Product {
 	
 	//update items in the table 
 	
-	public String updateProduct(String id, String name, String owner, String description, String price, String email)
+	public String updateProduct(String id, String review_id)
 	 { 
 		 String output = ""; 
 		 try
@@ -157,17 +141,13 @@ public class Product {
 		 
 		 
 		 // create a prepared statement
-		 String query = "UPDATE products SET product_name=?,owner=?,description=?,price=?,email=? WHERE product_id=?"; 
+		 String query = "UPDATE products SET review_id=? WHERE product_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values
-		 preparedStmt.setString(1, name); 
-		 preparedStmt.setString(2, owner); 
-		 preparedStmt.setString(3, description); 
-		 preparedStmt.setDouble(4, Double.parseDouble(price)); 
-		 preparedStmt.setString(5, email); 
-		 preparedStmt.setInt(6, Integer.parseInt(id));
+		 preparedStmt.setInt(1, Integer.parseInt(review_id)); 
+		 preparedStmt.setInt(2, Integer.parseInt(id));
 		 
 		 
 		 // execute the statement
