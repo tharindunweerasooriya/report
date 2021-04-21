@@ -18,6 +18,7 @@ public class Projects
 		 catch (Exception e) 
 		 {e.printStackTrace();} 
 		 return con; 
+		 
 	 } 
 	
 	public String addProjects(String name, String owner, String desc, String price, String email, String phone) 
