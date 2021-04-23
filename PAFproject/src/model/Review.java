@@ -31,7 +31,7 @@ public class Review {
 	
 	//Insert items to table
 	
-	public String insertItem(String id, String project_id, String review, String acceptance) 
+	public String insertReview(String id, String project_id, String review, String acceptance) 
 	 { 
 		 String output = ""; 
 		 try
@@ -53,7 +53,7 @@ public class Review {
 		 preparedStmt.setString(4, acceptance);
 		 
 		 
-		// execute the statement3
+		// execute the statement
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Inserted successfully"; 
@@ -76,7 +76,7 @@ public class Review {
 	
 	//retrieve items from the table
 	
-	public String readItems() 
+	public String readReviews() 
 	{ 
 		 String output = ""; 
 		 try
@@ -136,7 +136,7 @@ public class Review {
 	
 	//update items in the table 
 	
-	public String updateItem(String id, String project_id, String review, String acceptance)
+	public String updateReviews(String id, String project_id, String review, String acceptance)
 	 { 
 		 String output = ""; 
 		 try
@@ -178,7 +178,7 @@ public class Review {
 	
 	//delete items from table
 	
-	public String deleteItem(String ID) 
+	public String deleteReview(String ID) 
 	 { 
 		 String output = ""; 
 		 try
