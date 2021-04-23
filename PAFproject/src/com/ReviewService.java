@@ -30,7 +30,7 @@ public class ReviewService {
 	@Produces(MediaType.TEXT_HTML) 
 	public String readItems() 
 	 { 
-		 return Obj.readItems();
+		 return Obj.readReviews();
 	 } 
 	
 	
@@ -46,7 +46,7 @@ public class ReviewService {
 	@FormParam("review") String review,
 	@FormParam("acceptance") String acceptance)
 	{ 
-	 String output = Obj.insertItem(review_id, project_id, review, acceptance); 
+	 String output = Obj.insertReview(review_id, project_id, review, acceptance); 
 	return output; 
 	}
 
@@ -66,7 +66,7 @@ public class ReviewService {
 	 String review = itemObject.get("review").getAsString();
 	 String acceptance = itemObject.get("acceptance").getAsString();
 	 
-	 String output = Obj.updateItem(review_id, project_id, review, acceptance); 
+	 String output = Obj.updateReviews(review_id, project_id, review, acceptance); 
 	return output; 
 	}
 	
@@ -82,7 +82,7 @@ public class ReviewService {
 	 
 	//Read the value from the element <itemID>
 	 String projectID = doc.select("review_id").text(); 
-	 String output = Obj.deleteItem(projectID); 
+	 String output = Obj.deleteReview(projectID); 
 	return output; 
 	}
 
