@@ -43,10 +43,11 @@ public class ReviewService {
 	public String insertItem
 	(@FormParam("review_id") String review_id,
 	@FormParam("project_id") String project_id,
+	@FormParam("admin_id") String admin_id,
 	@FormParam("review") String review,
 	@FormParam("acceptance") String acceptance)
 	{ 
-	 String output = Obj.insertReview(review_id, project_id, review, acceptance); 
+	 String output = Obj.insertReview(review_id, project_id, admin_id,  review, acceptance); 
 	return output; 
 	}
 
@@ -63,10 +64,11 @@ public class ReviewService {
 	//Read the values from the JSON object
 	 String review_id = itemObject.get("review_id").getAsString();
 	 String project_id = itemObject.get("project_id").getAsString();
+	 String admin_id = itemObject.get("admin_id").getAsString();
 	 String review = itemObject.get("review").getAsString();
 	 String acceptance = itemObject.get("acceptance").getAsString();
 	 
-	 String output = Obj.updateReviews(review_id, project_id, review, acceptance); 
+	 String output = Obj.updateReviews(review_id, project_id, admin_id, review, acceptance); 
 	return output; 
 	}
 	
