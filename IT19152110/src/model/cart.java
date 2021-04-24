@@ -20,6 +20,7 @@ public class cart {
 	 }
 	 catch (Exception e){e.printStackTrace();
 	 }
+	 
 	 return con;
 	 } 
 	
@@ -49,6 +50,7 @@ public class cart {
 			preparedStmt.setString(3, added_date); 
 			preparedStmt.setInt(4, Integer.parseInt(qty));
 	
+			
 	 // execute the statement
 	 preparedStmt.execute(); 
 	 con.close(); 
@@ -70,6 +72,7 @@ public class cart {
 		 String output = ""; 
 		 
 		 try{
+			 
 			 Connection con = connect();
 			 if (con == null) {
 	
