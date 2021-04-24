@@ -44,7 +44,7 @@ public class Funds {
 			// execute the statement3
 			 preparedStmt.execute(); 
 			 con.close(); 
-			 output = "added successfully"; 
+			 output = "Added successfully"; 
 			 } 
 			 catch (Exception e) 
 			 { 

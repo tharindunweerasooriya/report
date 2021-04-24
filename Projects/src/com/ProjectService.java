@@ -33,13 +33,13 @@ public class ProjectService
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String addProjects(@FormParam("projectName") String projectName, 
-	 @FormParam("owner") String owner, 
+	 @FormParam("researcherID") String researcherID, 
 	 @FormParam("description") String description,
 	 @FormParam("price") String price, 
 	 @FormParam("email") String email,
 	 @FormParam("phone") String phone) 
 	{ 
-	 String output = projectObj.addProjects(projectName, owner, description, price,email,phone); 
+	 String output = projectObj.addProjects(projectName, researcherID, description, price,email,phone); 
 	return output; 
 	}
 
@@ -56,12 +56,12 @@ public class ProjectService
 	//Read the values from the JSON object
 	 String projectID = projectObject.get("projectID").getAsString(); 
 	 String projectName = projectObject.get("projectName").getAsString(); 
-	 String owner = projectObject.get("owner").getAsString(); 
+	 String researcherID = projectObject.get("researcherID").getAsString(); 
 	 String description = projectObject.get("description").getAsString(); 
 	 String price = projectObject.get("price").getAsString();
 	 String email = projectObject.get("email").getAsString(); 
 	 String phone = projectObject.get("phone").getAsString();
-	 String output = projectObj.updateProjects(projectID, projectName, owner, description, price,email,phone); 
+	 String output = projectObj.updateProjects(projectID, projectName, researcherID, description, price,email,phone); 
 	return output; 
 	}
 	

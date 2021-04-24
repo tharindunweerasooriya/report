@@ -21,7 +21,7 @@ public class Projects
 		 
 	 } 
 	
-	public String addProjects(String name, String owner, String desc, String price, String email, String phone) 
+	public String addProjects(String name, String researcherID, String desc, String price, String email, String phone) 
 	 { 
 		 String output = ""; 
 		 try
@@ -30,12 +30,12 @@ public class Projects
 		 if (con == null) 
 		 {return "Error while connecting to the database for adding."; } 
 		 // create a prepared statement
-		 String query = " insert into projects (`projectID`,`projectName`,`owner`,`description`,`price`,`email`,`phone`)"+ " values (?, ?, ?, ?, ?, ?, ?)"; 
+		 String query = " insert into projects (`projectID`,`projectName`,`researcherID`,`description`,`price`,`email`,`phone`)"+ " values (?, ?, ?, ?, ?, ?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
 		 preparedStmt.setInt(1, 0); 
 		 preparedStmt.setString(2, name); 
-		 preparedStmt.setString(3, owner);
+		 preparedStmt.setString(3, researcherID);
 		 preparedStmt.setString(4, desc);
 		 preparedStmt.setDouble(5, Double.parseDouble(price)); 
 		 preparedStmt.setString(6, email); 
@@ -63,7 +63,7 @@ public class Projects
 		 {return "Error while connecting to the database for reading."; } 
 		 // Prepare the html table to be displayed
 		 output = "<table border='1'><tr><th>Project ID</th><th>Project Name</th>" +
-		 "<th>Owner</th>" + 
+		 "<th>Researcher ID</th>" + 
 		 "<th>Description</th>" + 
 		 "<th>Price</th>" +
 		 "<th>Email</th>" + "<th>Phone</th>" +
@@ -77,7 +77,7 @@ public class Projects
 		 { 
 		 String projectID  = Integer.toString(rs.getInt("projectID")); 
 		 String projectName = rs.getString("projectName"); 
-		 String owner = rs.getString("owner");
+		 String researcherID = rs.getString("researcherID");
 		 String description = rs.getString("description"); 
 		 String price = Double.toString(rs.getDouble("price")); 
 		 String email = rs.getString("email"); 
@@ -85,7 +85,7 @@ public class Projects
 		 // Add into the html table
 		 output += "<tr><td>" + projectID + "</td>"; 
 		 output += "<td>" + projectName + "</td>"; 
-		 output += "<td>" + owner + "</td>"; 
+		 output += "<td>" + researcherID + "</td>"; 
 		 output += "<td>" + description + "</td>";
 		 output += "<td>" + price + "</td>"; 
 		 output += "<td>" + email + "</td>"; 
@@ -109,7 +109,7 @@ public class Projects
 		 return output; 
 	 }
 	
-	public String updateProjects(String ID ,String name, String owner, String desc, String price, String email, String phone)
+	public String updateProjects(String ID ,String name, String researcherID, String desc, String price, String email, String phone)
 	 { 
 		 String output = ""; 
 		 try
@@ -118,11 +118,11 @@ public class Projects
 		 if (con == null) 
 		 {return "Error while connecting to the database for updating."; } 
 		 // create a prepared statement
-		 String query = "UPDATE projects SET projectName=?,owner=?,description=?,price=?,email=?,phone=? WHERE projectID=?"; 
+		 String query = "UPDATE projects SET projectName=?,researcherID=?,description=?,price=?,email=?,phone=? WHERE projectID=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
 		 preparedStmt.setString(1, name); 
-		 preparedStmt.setString(2, owner);
+		 preparedStmt.setString(2, researcherID);
 		 preparedStmt.setString(3, desc);
 		 preparedStmt.setDouble(4, Double.parseDouble(price)); 
 		 preparedStmt.setString(5, email); 
