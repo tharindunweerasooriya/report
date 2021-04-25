@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class Funds {
 
-	//A common method to connect to the DB
+	//Connect DB
 		private Connection connect() 
 		 { 
 			 Connection con = null; 
@@ -16,7 +16,7 @@ public class Funds {
 			 { 
 			 Class.forName("com.mysql.jdbc.Driver"); 
 			 
-			 //Provide the correct details: DBServer/DBName, username, password 
+			 
 			 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/newdb", "root", ""); 
 			 } 
 			 catch (Exception e) 
@@ -33,7 +33,7 @@ public class Funds {
 			 Connection con = connect(); 
 			 if (con == null) 
 			 {return "Error while connecting to the database for adding."; } 
-			 // create a prepared statement
+			 // create a prepared statement for insert funds
 			 String query = " insert into funds (`fund_ID`,`admin_ID`,`product_ID`,`funds`)"+ " values (?, ?, ?, ?)"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
@@ -41,7 +41,7 @@ public class Funds {
 			 preparedStmt.setString(2, admin_ID); 
 			 preparedStmt.setString(3, product_ID);
 			 preparedStmt.setString(4, funds);
-			// execute the statement3
+			// execute insert statement
 			 preparedStmt.execute(); 
 			 con.close(); 
 			 output = "Added successfully"; 
@@ -62,7 +62,7 @@ public class Funds {
 			 Connection con = connect(); 
 			 if (con == null) 
 			 {return "Error while connecting to the database for reading."; } 
-			 // Prepare the html table to be displayed
+			 // Prepare table to display funds details
 			 output = "<table border='1'><tr><th>Funds ID</th><th>Admin ID</th>" +
 			 "<th>Product ID</th>" + 
 			 "<th>Funds</th>" + 
@@ -71,7 +71,7 @@ public class Funds {
 			 String query = "select * from funds"; 
 			 Statement stmt = con.createStatement(); 
 			 ResultSet rs = stmt.executeQuery(query); 
-			 // iterate through the rows in the result set
+			 
 			 while (rs.next()) 
 			 { 
 			 String fund_ID  = Integer.toString(rs.getInt("fund_ID")); 
@@ -79,13 +79,13 @@ public class Funds {
 			 String product_ID = rs.getString("product_ID");
 			 String funds = rs.getString("funds"); 
 			  
-			 // Add into the html table
+			 // Add funds details into table
 			 output += "<tr><td>" + fund_ID + "</td>"; 
 			 output += "<td>" + admin_ID + "</td>"; 
 			 output += "<td>" + product_ID + "</td>"; 
 			 output += "<td>" + funds + "</td>";
 			 
-			 // buttons
+			 // Edit and Update buttons
 			 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 			 + "<td><form method='post' action='projects.jsp'>"
 			+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
@@ -93,7 +93,7 @@ public class Funds {
 			 + "'>" + "</form></td></tr>"; 
 			 } 
 			 con.close(); 
-			 // Complete the html table
+			 
 			 output += "</table>"; 
 			 } 
 			 catch (Exception e) 
@@ -112,7 +112,7 @@ public class Funds {
 			 Connection con = connect(); 
 			 if (con == null) 
 			 {return "Error while connecting to the database for updating."; } 
-			 // create a prepared statement
+			 // create a prepared statement for update funds details
 			 String query = "UPDATE funds SET admin_ID=?,product_ID=?,funds=? WHERE fund_ID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
@@ -122,7 +122,7 @@ public class Funds {
 			 
 			  
 			 preparedStmt.setInt(4, Integer.parseInt(ID));
-			 // execute the statement
+			 // execute update statement
 			 preparedStmt.execute(); 
 			 con.close(); 
 			 output = "Fund Updated successfully"; 
@@ -143,12 +143,12 @@ public class Funds {
 			 Connection con = connect(); 
 			 if (con == null) 
 			 {return "Error while connecting to the database for deleting."; } 
-			 // create a prepared statement
+			 // create a prepared statement for delete funds
 			 String query = "delete from funds where fund_ID=?"; 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 // binding values
 			 preparedStmt.setInt(1, Integer.parseInt(fund_ID)); 
-			 // execute the statement
+			 // execute delete statement
 			 preparedStmt.execute(); 
 			 con.close(); 
 			 output = "Fund Deleted successfully"; 

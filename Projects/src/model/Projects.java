@@ -4,7 +4,7 @@ import java.sql.*;
 
 
 public class Projects 
-{ //A common method to connect to the DB
+{ //Connect DB
 	private Connection connect() 
 	 { 
 		 Connection con = null; 
@@ -12,7 +12,7 @@ public class Projects
 		 { 
 		 Class.forName("com.mysql.jdbc.Driver"); 
 		 
-		 //Provide the correct details: DBServer/DBName, username, password 
+		  
 		 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/newdb", "root", ""); 
 		 } 
 		 catch (Exception e) 
@@ -29,7 +29,7 @@ public class Projects
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for adding."; } 
-		 // create a prepared statement
+		 // create a prepared statement for insert projects
 		 String query = " insert into projects (`projectID`,`projectName`,`researcherID`,`description`,`price`,`email`,`phone`)"+ " values (?, ?, ?, ?, ?, ?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
@@ -40,7 +40,7 @@ public class Projects
 		 preparedStmt.setDouble(5, Double.parseDouble(price)); 
 		 preparedStmt.setString(6, email); 
 		 preparedStmt.setString(7, phone);
-		// execute the statement3
+		// execute insert statement
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "New project added successfully"; 
@@ -61,7 +61,7 @@ public class Projects
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for reading."; } 
-		 // Prepare the html table to be displayed
+		 // Prepare table to display project details
 		 output = "<table border='1'><tr><th>Project ID</th><th>Project Name</th>" +
 		 "<th>Researcher ID</th>" + 
 		 "<th>Description</th>" + 
@@ -72,7 +72,7 @@ public class Projects
 		 String query = "select * from projects"; 
 		 Statement stmt = con.createStatement(); 
 		 ResultSet rs = stmt.executeQuery(query); 
-		 // iterate through the rows in the result set
+		 
 		 while (rs.next()) 
 		 { 
 		 String projectID  = Integer.toString(rs.getInt("projectID")); 
@@ -82,7 +82,7 @@ public class Projects
 		 String price = Double.toString(rs.getDouble("price")); 
 		 String email = rs.getString("email"); 
 		 String phone = rs.getString("phone"); 
-		 // Add into the html table
+		 // Add projects details into the table
 		 output += "<tr><td>" + projectID + "</td>"; 
 		 output += "<td>" + projectName + "</td>"; 
 		 output += "<td>" + researcherID + "</td>"; 
@@ -90,7 +90,7 @@ public class Projects
 		 output += "<td>" + price + "</td>"; 
 		 output += "<td>" + email + "</td>"; 
 		 output += "<td>" + phone + "</td>";
-		 // buttons
+		 // Edit and Update buttons
 		 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 		 + "<td><form method='post' action='projects.jsp'>"
 		+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
@@ -98,7 +98,7 @@ public class Projects
 		 + "'>" + "</form></td></tr>"; 
 		 } 
 		 con.close(); 
-		 // Complete the html table
+		 
 		 output += "</table>"; 
 		 } 
 		 catch (Exception e) 
@@ -117,7 +117,7 @@ public class Projects
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for updating."; } 
-		 // create a prepared statement
+		 // create a prepared statement for update projects details
 		 String query = "UPDATE projects SET projectName=?,researcherID=?,description=?,price=?,email=?,phone=? WHERE projectID=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
@@ -130,7 +130,7 @@ public class Projects
 		 
 		  
 		 preparedStmt.setInt(7, Integer.parseInt(ID)); 
-		 // execute the statement
+		 // execute update statement
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Project Updated successfully"; 
@@ -151,12 +151,12 @@ public class Projects
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for deleting."; } 
-		 // create a prepared statement
+		 // create prepared statement for delete project details
 		 String query = "delete from projects where projectID=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
 		 preparedStmt.setInt(1, Integer.parseInt(projectID)); 
-		 // execute the statement
+		 // execute delete statement
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Project Deleted successfully"; 
